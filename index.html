@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor TXT com Download</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Editor TXT</h2>
+        <input type="text" id="fileName" placeholder="Nome do arquivo (ex: documento)" style="width: 100%; padding: 10px; margin-bottom: 15px;">
+        <textarea id="editor" placeholder="Digite seu texto aqui..."></textarea>
+        <button onclick="salvarArquivo()">Salvar e Baixar</button>
+    </div>
+
+    <script>
+        function salvarArquivo() {
+            const texto = document.getElementById('editor').value;
+            const nome = document.getElementById('fileName').value || 'arquivo';
+            
+            if(texto.length > 35 * 1024 * 1024) {
+                alert("Limite de 35MB ultrapassado!");
+                return;
+            }
+
+            const blob = new Blob([texto], {type: 'text/plain;charset=utf-8'});
+            saveAs(blob, `${nome}.txt`);
+        }
+    </script>
+</body>
+</html>
